@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { AeropuertoEntity } from "src/aeropuerto/aeropuerto.entity/aeropuerto.entity";
+import { AeropuertoEntity } from "../../aeropuerto/aeropuerto.entity/aeropuerto.entity";
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Url } from "url";
+
 
 @Entity()
 export class AerolineaEntity {
