@@ -28,7 +28,7 @@ export class AeropuertoService {
     async create(aeropuerto: AeropuertoEntity): Promise<AeropuertoEntity> {
 
         if(! /^[a-zA-Z]{3}$/.test(aeropuerto.codigo))
-            throw new BusinessLogicException("El código del aeropuerto es incorrecto", BusinessError.NOT_FOUND);
+            throw new BusinessLogicException("El código del aeropuerto es incorrecto", BusinessError.PRECONDITION_FAILED);
 
         return await this.aeropuertoRepository.save(aeropuerto);
     }
@@ -36,7 +36,7 @@ export class AeropuertoService {
     async update(id: string, aeropuerto: AeropuertoEntity): Promise<AeropuertoEntity> {
 
         if(! /^[a-zA-Z]{3}$/.test(aeropuerto.codigo))
-            throw new BusinessLogicException("El código del aeropuerto es incorrecto", BusinessError.NOT_FOUND);
+            throw new BusinessLogicException("El código del aeropuerto es incorrecto", BusinessError.PRECONDITION_FAILED);
         
         const persistedAeropuerto: AeropuertoEntity = await this.aeropuertoRepository.findOne({where:{id}});
         if (!persistedAeropuerto)

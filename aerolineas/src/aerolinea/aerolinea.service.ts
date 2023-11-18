@@ -27,18 +27,22 @@ export class AerolineaService {
 
     async create(aerolinea: AerolineaEntity): Promise<AerolineaEntity> {        
         const today = new Date();
+        aerolinea.fechafundacion = new Date(aerolinea.fechafundacion);
         today.setHours(0, 0, 0, 0);
-
+        aerolinea.fechafundacion.setHours(0,0,0,0);
         if (aerolinea.fechafundacion >= today)
+        {
             throw new BusinessLogicException("La fecha de fundación es posterior a la fecha actual", BusinessError.PRECONDITION_FAILED);
-
+        }
         return await this.aerolineaRepository.save(aerolinea);
     }
 
     async update(id: string, aerolinea: AerolineaEntity): Promise<AerolineaEntity> {
         
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        aerolinea.fechafundacion = new Date(aerolinea.fechafundacion);
+        aerolinea.fechafundacion.setHours(0,0,0,0);
+        today.setHours(0, 0, 0, 0);    
         if (aerolinea.fechafundacion >= today)
             throw new BusinessLogicException("La fecha de fundación es posterior a la fecha actual", BusinessError.PRECONDITION_FAILED);
         
