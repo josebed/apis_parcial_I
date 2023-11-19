@@ -1,25 +1,22 @@
 {
 	"info": {
-		"_postman_id": "0f2232d7-0a19-4435-b1e4-7b5fc62dca0f",
-		"name": "Aerolineas_Collection",
+		"_postman_id": "d02f9e10-385b-47e9-a657-73aa914b1d5a",
+		"name": "Aerolineas-Aeropuertos_Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30846750",
-		"_collection_link": "https://www.postman.com/interstellar-flare-349076/workspace/new-team-workspace/collection/30846750-0f2232d7-0a19-4435-b1e4-7b5fc62dca0f?action=share&source=collection_link&creator=30846750"
+		"_collection_link": "https://www.postman.com/interstellar-flare-349076/workspace/new-team-workspace/collection/30846750-d02f9e10-385b-47e9-a657-73aa914b1d5a?action=share&source=collection_link&creator=30846750"
 	},
 	"item": [
 		{
-			"name": "Aerolineas",
+			"name": "Aerolineas-Aeropuertos",
 			"item": [
 				{
-					"name": "Add_Airline",
+					"name": "Add_Airport_Airline",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var data = pm.response.json()\r",
-									"pm.globals.set(\"airline_id\", data.id);\r",
-									"\r",
 									"pm.test(\"Status code is 201\", function () {\r",
 									"   pm.response.to.have.status(201);\r",
 									"});"
@@ -33,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,24 +38,27 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines"
+								"airlines",
+								"{{airline_id}}",
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Add_Airline",
+							"name": "Add_Airport_Airline",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -66,12 +66,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines"
+										"airlines",
+										"{{airline_id}}",
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
@@ -88,19 +91,24 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-10-01\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"id\": \"23678f50-79c0-4440-9e1e-36f09bb66de6\"\n}"
+							"body": "{\n    \"id\": \"04b4e09b-170e-4c38-914c-4d9ea2a903a0\",\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"aeropuertos\": [\n        {\n            \"id\": \"3e01a2e0-073b-4dd8-8140-1e68688aa812\",\n            \"nombre\": \"Jose María Córdova\",\n            \"codigo\": \"MDE\",\n            \"pais\": \"Colombia\",\n            \"ciudad\": \"Medellin\"\n        }\n    ]\n}"
 						}
 					]
 				},
 				{
-					"name": "Add_airline_invalid",
+					"name": "Add_Airport_No_Exist_Airline",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 412\", function () {\r",
-									"   pm.response.to.have.status(412);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"   pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"   var data = pm.response.json();\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el Id dado no existe\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -112,7 +120,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"20100-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,24 +128,27 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines"
+								"airlines",
+								"{{airline_id}}",
+								"airports",
+								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Add_ailine_invalid",
+							"name": "Add_Airport_No_Exist_Airline",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"20100-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -145,16 +156,222 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines"
+										"airlines",
+										"{{airline_id}}",
+										"airports",
+										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 									]
 								}
 							},
-							"status": "Precondition Failed",
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El aeropuerto con el Id dado no existe\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get_AriportsAirline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"   pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"airlines",
+								"{{airline_id}}",
+								"airports"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get_AriportsAirline",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"airlines",
+										"{{airline_id}}",
+										"airports"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"3e01a2e0-073b-4dd8-8140-1e68688aa812\",\n        \"nombre\": \"Jose María Córdova\",\n        \"codigo\": \"MDE\",\n        \"pais\": \"Colombia\",\n        \"ciudad\": \"Medellin\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get_Airport_Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"   pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"airlines",
+								"{{airline_id}}",
+								"airports",
+								"{{airport_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get_Airport_Airline",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"airlines",
+										"{{airline_id}}",
+										"airports",
+										"{{airport_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"3e01a2e0-073b-4dd8-8140-1e68688aa812\",\n    \"nombre\": \"Jose María Córdova\",\n    \"codigo\": \"MDE\",\n    \"pais\": \"Colombia\",\n    \"ciudad\": \"Medellin\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get_Airport_No_Associated_Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 412\", function () {\r",
+									"   pm.response.to.have.status(412);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"   var data = pm.response.json();\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el Id dado no está asociado con la aerolínea\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"airlines",
+								"{{airline_id}}",
+								"airports",
+								"{{airport_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get_Airport_No_Associated_Airline",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"airlines",
+										"{{airline_id}}",
+										"airports",
+										"{{airport_id}}"
+									]
+								}
+							},
 							"code": 412,
 							"_postman_previewlanguage": "json",
 							"header": [
@@ -167,23 +384,18 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 412,\n    \"message\": \"La fecha de fundación es posterior a la fecha actual\"\n}"
+							"body": "{\n    \"statusCode\": 412,\n    \"message\": \"El aeropuerto con el Id dado no está asociado con la aerolínea\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Get_Airlines",
+					"name": "Update_Airport_Airline",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test('Number of airlines > ' + 0, function () {\r",
-									"   var data = pm.response.json()\r",
-									"   pm.expect(data.length).to.greaterThan(0)\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"Status code is 201\", function () {\r",
 									"   pm.response.to.have.status(200);\r",
 									"});"
 								],
@@ -192,94 +404,53 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/airlines",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"airlines"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get_Airlines",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/airlines",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"airlines"
-									]
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": \"{{airport_id}}\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426711\",\n        \"nombre\": \"Latam\",\n        \"descripcion\": \"Latama Airlines\",\n        \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n        \"paginaweb\": \"http://www.latam.com\",\n        \"aeropuertos\": []\n    }\n]"
-						}
-					]
-				},
-				{
-					"name": "Get_Airline",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"   pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
 							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
+						},
 						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"airlines",
-								"{{airline_id}}"
+								"{{airline_id}}",
+								"airports"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get_Airline",
+							"name": "Update_Airport_Airline",
 							"originalRequest": {
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": \"{{airport_id}}\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
 										"airlines",
-										"{{airline_id}}"
+										"{{airline_id}}",
+										"airports"
 									]
 								}
 							},
@@ -296,12 +467,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426711\",\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"aeropuertos\": []\n}"
+							"body": "{\n    \"id\": \"04b4e09b-170e-4c38-914c-4d9ea2a903a0\",\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"aeropuertos\": [\n        {\n            \"id\": \"629eeff2-caf1-4633-a4c1-d338d1442318\"\n        }\n    ]\n}"
 						}
 					]
 				},
 				{
-					"name": "Get_Airline_No_Exist",
+					"name": "Update_Airport_No_Exist_Airline",
 					"event": [
 						{
 							"listen": "test",
@@ -313,7 +484,7 @@
 									"\r",
 									"pm.test(\"Get expected error message\", function () {\r",
 									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el Id dado no existe\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -321,33 +492,53 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426799\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"airlines",
-								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
+								"{{airline_id}}",
+								"airports"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get_Airline_No_Exist",
+							"name": "Update_Airport_No_Exist_Airline",
 							"originalRequest": {
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426799\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
 										"airlines",
-										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
+										"{{airline_id}}",
+										"airports"
 									]
 								}
 							},
@@ -364,179 +555,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El aeropuerto con el Id dado no existe\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Update_Airline",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"   pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"airlines",
-								"{{airline_id}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Update_Airline",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"airlines",
-										"{{airline_id}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"0c59a16f-5ea2-42f5-a139-7e990b3afbf9\",\n    \"nombre\": \"Latam Airlines\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Update_Airline_No_Exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"   pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Get expected error message\", function () {\r",
-									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"airlines",
-								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "New Request",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"airlines",
-										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Delete_Airline",
+					"name": "Delete_Airport_Airline",
 					"event": [
 						{
 							"listen": "test",
@@ -554,30 +578,34 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"airlines",
-								"{{airline_id}}"
+								"{{airline_id}}",
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Delete_Airline",
+							"name": "Delete_Airport_Airline",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
 										"airlines",
-										"{{airline_id}}"
+										"{{airline_id}}",
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
@@ -591,19 +619,19 @@
 					]
 				},
 				{
-					"name": "Delete_Airline_No_Exist",
+					"name": "Delete_Airport_Not_Associated_Airline",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"   pm.response.to.have.status(404);\r",
+									"pm.test(\"Status code is 412\", function () {\r",
+									"   pm.response.to.have.status(412);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Get expected error message\", function () {\r",
 									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el Id dado no está asociado con la aerolínea\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -614,58 +642,39 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+							"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"airlines",
-								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
+								"{{airline_id}}",
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Delete_Airline",
+							"name": "Delete_Airport_Not_Associated_Airline",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airlines/{{airline_id}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
 										"airlines",
-										"{{airline_id}}"
+										"{{airline_id}}",
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
-						},
-						{
-							"name": "Delete_Airline_No_Exist",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"airlines",
-										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
+							"status": "Precondition Failed",
+							"code": 412,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -677,7 +686,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
+							"body": "{\n    \"statusCode\": 412,\n    \"message\": \"El aeropuerto con el Id dado no está asociado con la aerolínea\"\n}"
 						}
 					]
 				}

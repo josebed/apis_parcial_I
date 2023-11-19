@@ -1,24 +1,24 @@
 {
 	"info": {
-		"_postman_id": "0f2232d7-0a19-4435-b1e4-7b5fc62dca0f",
-		"name": "Aerolineas_Collection",
+		"_postman_id": "8aebe2e9-b7a5-4753-b6f7-18f9b3162d3b",
+		"name": "Aeropuertos_Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30846750",
-		"_collection_link": "https://www.postman.com/interstellar-flare-349076/workspace/new-team-workspace/collection/30846750-0f2232d7-0a19-4435-b1e4-7b5fc62dca0f?action=share&source=collection_link&creator=30846750"
+		"_collection_link": "https://www.postman.com/interstellar-flare-349076/workspace/new-team-workspace/collection/30846750-8aebe2e9-b7a5-4753-b6f7-18f9b3162d3b?action=share&source=collection_link&creator=30846750"
 	},
 	"item": [
 		{
-			"name": "Aerolineas",
+			"name": "Aeropuertos",
 			"item": [
 				{
-					"name": "Add_Airline",
+					"name": "Add_Airport",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
 									"var data = pm.response.json()\r",
-									"pm.globals.set(\"airline_id\", data.id);\r",
+									"pm.globals.set(\"airport_id\", data.id);\r",
 									"\r",
 									"pm.test(\"Status code is 201\", function () {\r",
 									"   pm.response.to.have.status(201);\r",
@@ -33,7 +33,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Medellin\",\r\n    \"pais\": \"Colombia\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,24 +41,24 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines",
+							"raw": "{{baseURL}}/airports",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines"
+								"airports"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Add_Airline",
+							"name": "Add_Airport",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Medellin\",\r\n    \"pais\": \"Colombia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -66,12 +66,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines",
+									"raw": "{{baseURL}}/airports",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines"
+										"airports"
 									]
 								}
 							},
@@ -88,12 +88,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-10-01\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"id\": \"23678f50-79c0-4440-9e1e-36f09bb66de6\"\n}"
+							"body": "{\n    \"nombre\": \"Jose María Córdova\",\n    \"codigo\": \"MDE\",\n    \"ciudad\": \"Medellin\",\n    \"pais\": \"Colombia\",\n    \"id\": \"1f60bfd1-bf76-40f5-a2de-a1f4730f1f43\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Add_airline_invalid",
+					"name": "Add_Airport_Invalid",
 					"event": [
 						{
 							"listen": "test",
@@ -101,6 +101,11 @@
 								"exec": [
 									"pm.test(\"Status code is 412\", function () {\r",
 									"   pm.response.to.have.status(412);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"   var data = pm.response.json();\r",
+									"   pm.expect(data.message).to.eql(\"El código del aeropuerto es incorrecto\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -112,7 +117,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"20100-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MEDELLIN\",\r\n    \"ciudad\": \"Medellin\",\r\n    \"pais\": \"Colombia\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,24 +125,24 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines",
+							"raw": "{{baseURL}}/airports",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines"
+								"airports"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Add_ailine_invalid",
+							"name": "Add_Airport_Invalid",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"20100-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MEDELLIN\",\r\n    \"ciudad\": \"Medellin\",\r\n    \"pais\": \"Colombia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -145,12 +150,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines",
+									"raw": "{{baseURL}}/airports",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines"
+										"airports"
 									]
 								}
 							},
@@ -167,18 +172,18 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 412,\n    \"message\": \"La fecha de fundación es posterior a la fecha actual\"\n}"
+							"body": "{\n    \"statusCode\": 412,\n    \"message\": \"El código del aeropuerto es incorrecto\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Get_Airlines",
+					"name": "Get_Aeropuertos",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test('Number of airlines > ' + 0, function () {\r",
+									"pm.test('Number of airports > ' + 0, function () {\r",
 									"   var data = pm.response.json()\r",
 									"   pm.expect(data.length).to.greaterThan(0)\r",
 									"});\r",
@@ -195,28 +200,28 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines",
+							"raw": "{{baseURL}}/airports",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines"
+								"airports"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get_Airlines",
+							"name": "Get_Aeropuertos",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines",
+									"raw": "{{baseURL}}/airports",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines"
+										"airports"
 									]
 								}
 							},
@@ -233,12 +238,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426711\",\n        \"nombre\": \"Latam\",\n        \"descripcion\": \"Latama Airlines\",\n        \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n        \"paginaweb\": \"http://www.latam.com\",\n        \"aeropuertos\": []\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"5a45345c-6d75-4179-9f82-07d98623d5ea\",\n        \"nombre\": \"Jose María Córdova\",\n        \"codigo\": \"MDE\",\n        \"pais\": \"Colombia\",\n        \"ciudad\": \"Medellin\",\n        \"aerolineas\": []\n    }\n]"
 						}
 					]
 				},
 				{
-					"name": "Get_Airline",
+					"name": "Get_Airport",
 					"event": [
 						{
 							"listen": "test",
@@ -256,30 +261,30 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
+							"raw": "{{baseURL}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
-								"{{airline_id}}"
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get_Airline",
+							"name": "Get_Airport",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
-										"{{airline_id}}"
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
@@ -296,12 +301,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"2ab1e2d6-161e-4757-bacb-8bdad1426711\",\n    \"nombre\": \"Latam\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\",\n    \"aeropuertos\": []\n}"
+							"body": "{\n    \"id\": \"3b18e22b-6247-496b-8edf-ac9b241f7db5\",\n    \"nombre\": \"Jose María Córdova\",\n    \"codigo\": \"MDE\",\n    \"pais\": \"Colombia\",\n    \"ciudad\": \"Medellin\",\n    \"aerolineas\": []\n}"
 						}
 					]
 				},
 				{
-					"name": "Get_Airline_No_Exist",
+					"name": "Get_Airports_No_Exist",
 					"event": [
 						{
 							"listen": "test",
@@ -313,7 +318,7 @@
 									"\r",
 									"pm.test(\"Get expected error message\", function () {\r",
 									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el id dado no existe\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -324,29 +329,29 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+							"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
+								"airports",
 								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get_Airline_No_Exist",
+							"name": "Get_Airports_No_Exist",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+									"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
+										"airports",
 										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 									]
 								}
@@ -364,12 +369,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El aeropuerto con el id dado no existe\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Update_Airline",
+					"name": "Update_Aeropuerto",
 					"event": [
 						{
 							"listen": "test",
@@ -388,7 +393,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Rionegro\",\r\n    \"pais\": \"Colombia\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -396,25 +401,25 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
+							"raw": "{{baseURL}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
-								"{{airline_id}}"
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Update_Airline",
+							"name": "Update_Aeropuerto",
 							"originalRequest": {
-								"method": "PUT",
+								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Rionegro\",\r\n    \"pais\": \"Colombia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -422,13 +427,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
-										"{{airline_id}}"
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
@@ -445,12 +450,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"0c59a16f-5ea2-42f5-a139-7e990b3afbf9\",\n    \"nombre\": \"Latam Airlines\",\n    \"descripcion\": \"Latama Airlines\",\n    \"fechafundacion\": \"2000-09-30T05:00:00.000Z\",\n    \"paginaweb\": \"http://www.latam.com\"\n}"
+							"body": "{\n    \"id\": \"3b18e22b-6247-496b-8edf-ac9b241f7db5\",\n    \"nombre\": \"Jose María Córdova\",\n    \"codigo\": \"MDE\",\n    \"pais\": \"Colombia\",\n    \"ciudad\": \"Rionegro\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Update_Airline_No_Exist",
+					"name": "Update_Aeropuerto_No_Exist",
 					"event": [
 						{
 							"listen": "test",
@@ -462,7 +467,7 @@
 									"\r",
 									"pm.test(\"Get expected error message\", function () {\r",
 									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el id dado no existe\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -474,7 +479,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Rionegro\",\r\n    \"pais\": \"Colombia\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -482,25 +487,25 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+							"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
+								"airports",
 								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Update_Aeropuerto_No_Exist",
 							"originalRequest": {
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Latam Airlines\",\r\n    \"descripcion\": \"Latama Airlines\",\r\n    \"fechafundacion\": \"2000-10-01\",\r\n    \"paginaweb\":\"http://www.latam.com\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Jose María Córdova\",\r\n    \"codigo\": \"MDE\",\r\n    \"ciudad\": \"Rionegro\",\r\n    \"pais\": \"Colombia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -508,12 +513,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+									"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
+										"airports",
 										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 									]
 								}
@@ -531,12 +536,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El aeropuerto con el id dado no existe\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Delete_Airline",
+					"name": "Delete_Airport",
 					"event": [
 						{
 							"listen": "test",
@@ -554,30 +559,30 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/{{airline_id}}",
+							"raw": "{{baseURL}}/airports/{{airport_id}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
-								"{{airline_id}}"
+								"airports",
+								"{{airport_id}}"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Delete_Airline",
+							"name": "Delete_Airport",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airports/{{airport_id}}",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
-										"{{airline_id}}"
+										"airports",
+										"{{airport_id}}"
 									]
 								}
 							},
@@ -591,7 +596,7 @@
 					]
 				},
 				{
-					"name": "Delete_Airline_No_Exist",
+					"name": "Delete_Airport_No_Exist",
 					"event": [
 						{
 							"listen": "test",
@@ -603,7 +608,7 @@
 									"\r",
 									"pm.test(\"Get expected error message\", function () {\r",
 									"   var data = pm.response.json();\r",
-									"   pm.expect(data.message).to.eql(\"La aerolinea con el id dado no existe\");\r",
+									"   pm.expect(data.message).to.eql(\"El aeropuerto con el id dado no existe\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -614,52 +619,29 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
+							"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"airlines",
+								"airports",
 								"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Delete_Airline",
+							"name": "Delete_Airport_No_Exist",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseURL}}/airlines/{{airline_id}}",
+									"raw": "{{baseURL}}/airports/2ab1e2d6-161e-4757-bacb-8bdad1426799",
 									"host": [
 										"{{baseURL}}"
 									],
 									"path": [
-										"airlines",
-										"{{airline_id}}"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
-						},
-						{
-							"name": "Delete_Airline_No_Exist",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/airlines/2ab1e2d6-161e-4757-bacb-8bdad1426799",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"airlines",
+										"airports",
 										"2ab1e2d6-161e-4757-bacb-8bdad1426799"
 									]
 								}
@@ -677,7 +659,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La aerolinea con el id dado no existe\"\n}"
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El aeropuerto con el id dado no existe\"\n}"
 						}
 					]
 				}
